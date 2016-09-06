@@ -111,3 +111,6 @@ tests/report/
 
 #thumbnails
 uploads/thumbnails/
+
+#Idea project
+.idea/
