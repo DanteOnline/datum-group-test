@@ -5,12 +5,30 @@
     <meta charset="UTF-8">
     <title>Карта</title>
     <link rel="stylesheet" href="{% static "css/leaflet.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/leaflet.contextmenu.min.css" %}"/>
     <link rel="stylesheet" href="{% static "css/map.css" %}"/>
-    <script src="{% static "js/leaflet.js" %}"></script>
     <script src="{% static "js/leaflet-src.js" %}"></script>
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/hide.js" %}"></script>
     <script type="text/javascript" src="{% static "js/leaflet.ajax.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/leaflet.contextmenu.min.js" %}"></script>
 </head>
 <body>
     <div id="map"></div>
     <script src="{% static "js/map.js" %}"></script>
+    <!--скрытое окно
+    <div class="b-container">
+        Sample Text
+        <a href="javascript:PopUpShow()">Show popup</a>
+    </div> -->
+    <div class="b-popup" id="popup1">
+        <div class="b-popup-content">
+            Вы действительно хотите удалить объект?
+            <form method="post" id="delete" name="delete" action="">
+              {% csrf_token %}
+              <input type="submit" value="Удалить" />
+                <input type="button" value="Отмена" onClick='location.href="javascript:PopUpHide()"'>
+            </form>
+        </div>
+    </div>
 </html>

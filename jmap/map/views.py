@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.http import QueryDict
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from map.models import GeoObject
@@ -41,4 +42,26 @@ def get_objects(request):
         return HttpResponse(jresult, content_type='text/html')
     else:
         return HttpResponse('no', content_type='text/html')
+
+def delete_post(request):
+    if request.method == 'DELETE':
+        longitude = float(QueryDict(request.body).get('lng'))
+        latitude = float(QueryDict(request.body).get('lat'))
+
+        geo_object = GeoObject.objects.filter(longitude = longitude, latitude = latitude)
+        geo_object.delete()
+
+        response_data = {}
+        response_data['msg'] = 'geo_object was deleted.'
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
 
