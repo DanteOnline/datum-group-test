@@ -5,3 +5,5 @@ var map = L.map('map').setView([56.326944, 44.0075], 12);
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a rel="nofollow" href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+
+L.marker([56.326944, 44.0075]).addTo(map);
