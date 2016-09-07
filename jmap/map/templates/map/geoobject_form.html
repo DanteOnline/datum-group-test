@@ -1,5 +1,9 @@
+{% load staticfiles %}
 <form id="update" action="" method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Сохранить" />
 </form>
+<script type="text/javascript" src="{% static "js/jquery.form.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery.validate.js" %}"></script>
+<script type="text/javascript" src="{% static "js/validate_crud.js" %}"></script>
 <button onclick="javascript:PopUpHide()">Отмена</button>

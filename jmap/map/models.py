@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 class GeoObject(models.Model):
     name = models.CharField(max_length=50, verbose_name='Наименование')
     BUILDING = 'BU'
@@ -27,4 +26,4 @@ class GeoObject(models.Model):
     latitude = models.FloatField(verbose_name='Широта')
 
     def __str__(self):
-        return self.name + str((self.longitude, self.latitude))
+        return self.name + ' ' + str((self.longitude, self.latitude))
