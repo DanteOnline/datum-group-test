@@ -89,7 +89,7 @@ function delete_item(e) {
             }
         });
     }*/
-    PopUpShow();
+    //PopUpShow();
 }
 
 

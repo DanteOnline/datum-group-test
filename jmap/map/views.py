@@ -1,13 +1,28 @@
 from django.http import HttpResponse
 from django.http import QueryDict
-from django.shortcuts import render
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic.base import TemplateView
+from django.core.urlresolvers import reverse_lazy
 from map.models import GeoObject
 import json
 # Create your views here.
 
 class MapView(TemplateView):
     template_name = "index.html"
+
+class GeoObjectDelete(DeleteView):
+    model = GeoObject
+    success_url = reverse_lazy('main')
+
+class GeoObjectCreate(CreateView):
+    model = GeoObject
+    fields = '__all__'
+    success_url = reverse_lazy('main')
+
+class GeoObjectsUpdate(UpdateView):
+    model = GeoObject
+    fields = '__all__'
+    success_url = reverse_lazy('main')
 
 def get_object_data(object):
     feature = {}
@@ -20,9 +35,9 @@ def get_object_data(object):
     feature['type'] = 'Feature'
     feature['id'] = object.pk
     properties = {}
-    properties['name'] = object.name
-    properties['status'] = object.status
-    properties['power'] = object.power
+    properties['Название'] = object.name
+    properties['Статус'] = object.get_status()
+    properties['Мощьность'] = object.power
     feature['properties'] = properties
     return feature
 
