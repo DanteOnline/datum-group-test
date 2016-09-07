@@ -1,4 +1,5 @@
-<form action="" method="post">{% csrf_token %}
+<form action="" method="post" id="delete">{% csrf_token %}
     <p>Вы уверены, что хотите удалить объект "{{ object }}"?</p>
     <input type="submit" value="ОК" />
 </form>
+<button onclick="javascript:PopUpHide()">Отмена</button>

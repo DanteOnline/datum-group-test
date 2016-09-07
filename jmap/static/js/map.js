@@ -4,21 +4,9 @@ var map = L.map('map', {
     contextmenu: true,
     contextmenuWidth: 140,
     contextmenuItems: [{
-        text: 'Show coordinates',
-        callback: showCoordinates
-    }, {
-        text: 'Center map here',
-        callback: centerMap
-    }, '-', {
-        text: 'Zoom in',
-        icon: '/static/js/images/zoom-in.png',
-        callback: zoomIn
-    }, {
-        text: 'Zoom out',
-        icon: '/static/js/images/zoom-out.png',
-        callback: zoomOut
-    }]
-    }).setView([44.5919, 38.0242], 14);
+        text: 'Добавить',
+        callback: add_item
+    }]}).setView([44.5919, 38.0242], 14);
 
 function showCoordinates (e) {
     alert(e.latlng);
@@ -70,19 +58,17 @@ function popUp(f,l){
 
 function edit_item(e) {
     number = get_number(e);
-    url = "/"+number+'/update';
-    window.location.href = url;
-}
-
-function delete_item(e) {
-/*
-    if (confirm("Вы подтверждаете удаление?")) {
-        $.ajax({
-            url : "delete_post/", // the endpoint
-            type : "DELETE", // http method
-            data : { 'lng' : e.latlng.lng, 'lat': e.latlng.lat }, // data sent with the delete request
-            success : function(json) {
-                alert('Объект был успешно удален');
+    url = "/"+number+'/update/';
+    //window.location.href = url;
+    $.ajax({
+            url : url,
+            type : "GET", // http method
+            success : function(html) {
+                //пишем в скрытое окно
+                $("#hidden").html(html);
+                //заменяем action у формы. Наверное так делать не стоило :)
+                $("#update").attr('action',url);
+                PopUpShow();
             },
             error : function(xhr,errmsg,err) {
                 // Show an error
@@ -90,26 +76,52 @@ function delete_item(e) {
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             }
         });
-    }*/
-    //PopUpShow();
-    /*
-    alert(e.latlng);
+}
+
+function delete_item(e) {
+    number = get_number(e);
+    url = "/"+number+'/delete/';
+    //window.location.href = url;
     $.ajax({
-            url : "goc/",
-            type : "GET",
-            data : { 'lng' : e.latlng.lng, 'lat': e.latlng.lat },
-            success : function(json) {
-                alert(json);
+            url : url,
+            type : "GET", // http method
+            success : function(html) {
+                //пишем в скрытое окно
+                $("#hidden").html(html);
+                //заменяем action у формы. Наверное так делать не стоило :)
+                $("#delete").attr('action',url);
+                PopUpShow();
             },
             error : function(xhr,errmsg,err) {
                 // Show an error
                 alert(xhr.status + ": " + xhr.responseText);
-                console.log(xhr.status + ": " + xhr.responseText);
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             }
         });
-        */
-        number = get_number(e);
-        window.location.href = "/"+number+'/delete';
+}
+
+function add_item(e)
+{
+    url = '/create/';
+    $.ajax({
+            url : url,
+            type : "GET", // http method
+            success : function(html) {
+                //пишем в скрытое окно
+                $("#hidden").html(html);
+                //заменяем action у формы. Наверное так делать не стоило :)
+                $("#update").attr('action',url);
+                //добавляем широту и долготу
+                $('#id_longitude').attr('value',e.latlng.lng);
+                $('#id_latitude').attr('value',e.latlng.lat);
+                PopUpShow();
+            },
+            error : function(xhr,errmsg,err) {
+                // Show an error
+                alert(xhr.status + ": " + xhr.responseText);
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
 }
 
 function get_number(e)

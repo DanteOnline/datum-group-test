@@ -3,7 +3,7 @@ $(document).ready(function(){
     PopUpHide();
 });
 //Функция отображения PopUp
-function {
+function PopUpShow() {
     $("#popup1").show();
 }
 //Функция скрытия PopUp

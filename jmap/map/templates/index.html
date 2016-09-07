@@ -21,14 +21,9 @@
         Sample Text
         <a href="javascript:PopUpShow()">Show popup</a>
     </div>
+    -->
     <div class="b-popup" id="popup1">
-        <div class="b-popup-content">
-            Вы действительно хотите удалить объект?
-            <form method="post" id="delete" name="delete" action="">
-              {% csrf_token %}
-              <input type="submit" value="Удалить" />
-                <input type="button" value="Отмена" onClick='location.href="javascript:PopUpHide()"'>
-            </form>
+        <div id="hidden" class="b-popup-content">
         </div>
-    </div>-->
+    </div>
 </html>
