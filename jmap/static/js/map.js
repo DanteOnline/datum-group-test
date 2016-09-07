@@ -69,7 +69,9 @@ function popUp(f,l){
 }
 
 function edit_item(e) {
-    map.zoomOut();
+    number = get_number(e);
+    url = "/"+number+'/update';
+    window.location.href = url;
 }
 
 function delete_item(e) {
@@ -90,6 +92,38 @@ function delete_item(e) {
         });
     }*/
     //PopUpShow();
+    /*
+    alert(e.latlng);
+    $.ajax({
+            url : "goc/",
+            type : "GET",
+            data : { 'lng' : e.latlng.lng, 'lat': e.latlng.lat },
+            success : function(json) {
+                alert(json);
+            },
+            error : function(xhr,errmsg,err) {
+                // Show an error
+                alert(xhr.status + ": " + xhr.responseText);
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+        */
+        number = get_number(e);
+        window.location.href = "/"+number+'/delete';
+}
+
+function get_number(e)
+{
+    content = e.relatedTarget._popup._content;
+    number = parse_number(content);
+    return number;
+}
+
+function parse_number(content)
+{
+    var right = content.split('Номер: ')[1];
+    var number = right.split('<br />')[0];
+    return number;
 }
 
 

@@ -35,6 +35,7 @@ def get_object_data(object):
     feature['type'] = 'Feature'
     feature['id'] = object.pk
     properties = {}
+    properties['Номер'] = object.pk
     properties['Название'] = object.name
     properties['Статус'] = object.get_status()
     properties['Мощьность'] = object.power
@@ -73,6 +74,18 @@ def delete_post(request):
             json.dumps(response_data),
             content_type="application/json"
         )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
+def get_object_by_coords(request):
+    if request.method == 'GET':
+        longitude = float(request.GET['lng'])
+        latitude = float(request.GET['lat'])
+        geo_object = GeoObject.objects.filter(longitude=longitude, latitude=latitude)
+        return HttpResponse(geo_object)
     else:
         return HttpResponse(
             json.dumps({"nothing to see": "this isn't happening"}),
